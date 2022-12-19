@@ -10,5 +10,5 @@ import (
 
 var RegisterRoutes = func(router *mux.Router) {
 	router.HandleFunc("/v1/auth/token", utils.Middleware(http.HandlerFunc(controllers.CreateToken))).Methods("GET")
-	router.HandleFunc("/v1/book/{id}", utils.Middleware(http.HandlerFunc(controllers.GetUser))).Methods("GET")
+	router.HandleFunc("/v1/user/{id}", utils.Middleware(http.HandlerFunc(controllers.GetUser))).Methods("GET")
 }

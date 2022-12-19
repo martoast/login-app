@@ -15,7 +15,9 @@ import (
 
 func main() {
 	port := os.Getenv("PORT")
+
 	utils.SetupGoGuardian()
+
 	router := mux.NewRouter()
 
 	routes.RegisterRoutes(router)

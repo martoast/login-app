@@ -10,7 +10,8 @@ var db *gorm.DB
 
 type User struct {
 	gorm.Model
-	Username string `gorm:""json:"username"`
+	ID       string `gorm:"primaryKey"`
+	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
