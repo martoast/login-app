@@ -10,7 +10,7 @@ import (
 func CreateToken(w http.ResponseWriter, r *http.Request) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"iss": "login-app",
-		"sub": "alex",
+		"sub": "medium",
 		"aud": "any",
 		"exp": time.Now().Add(time.Minute * 5).Unix(),
 	})

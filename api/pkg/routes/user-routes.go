@@ -9,6 +9,7 @@ import (
 )
 
 var RegisterRoutes = func(router *mux.Router) {
-	router.HandleFunc("/v1/auth/token", utils.Middleware(http.HandlerFunc(controllers.CreateToken))).Methods("GET")
-	router.HandleFunc("/v1/user/{id}", utils.Middleware(http.HandlerFunc(controllers.GetUser))).Methods("GET")
+	router.HandleFunc("/api/users/", controllers.CreateUser).Methods("POST")
+	router.HandleFunc("/api/auth/token", utils.Middleware(http.HandlerFunc(controllers.CreateToken))).Methods("GET")
+	router.HandleFunc("/api/users/{id}", utils.Middleware(http.HandlerFunc(controllers.GetUser))).Methods("GET")
 }

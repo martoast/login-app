@@ -5,10 +5,10 @@ services:
     platform: linux/x86_64 # M1 Mac
     image: mysql:8.0
     volumes:
-      - login-app-volume:/var/lib/mysql
+      - my-datavolume:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: xx
-      MYSQL_DATABASE: login-app
+      MYSQL_DATABASE: bookstore
     ports:
       - 3306:3306
 
@@ -39,4 +39,4 @@ services:
       - 3000:3000
   
 volumes:
-  login-app-volume:
+  my-datavolume:

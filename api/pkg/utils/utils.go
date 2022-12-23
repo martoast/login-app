@@ -2,7 +2,9 @@ package utils
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 
@@ -32,8 +34,8 @@ func SetupGoGuardian() {
 
 func ValidateUser(ctx context.Context, r *http.Request, userName, password string) (auth.Info, error) {
 	// here connect to db or any other service to fetch user and validate it.
-	if userName == "alex" && password == "xx" {
-		return auth.NewDefaultUser("alex", "1", nil, nil), nil
+	if userName == "medium" && password == "medium" {
+		return auth.NewDefaultUser("medium", "1", nil, nil), nil
 	}
 
 	return nil, fmt.Errorf("invalid credentials")
@@ -44,6 +46,7 @@ func Middleware(next http.Handler) http.HandlerFunc {
 		log.Println("Executing Auth Middleware")
 		user, err := authenticator.Authenticate(r)
 		if err != nil {
+			fmt.Println("Not authenticated, try again.")
 			code := http.StatusUnauthorized
 			http.Error(w, http.StatusText(code), code)
 			return
@@ -71,4 +74,12 @@ func VerifyToken(ctx context.Context, r *http.Request, tokenString string) (auth
 	}
 
 	return nil, fmt.Errorf("invaled token")
+}
+
+func ParseBody(r *http.Request, x interface{}) {
+	if body, err := io.ReadAll(r.Body); err == nil {
+		if err := json.Unmarshal([]byte(body), x); err != nil {
+			return
+		}
+	}
 }
