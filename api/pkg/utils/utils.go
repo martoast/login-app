@@ -10,6 +10,8 @@ import (
 
 	"time"
 
+	"api/pkg/models"
+
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/shaj13/go-guardian/auth"
 	"github.com/shaj13/go-guardian/auth/strategies/basic"
@@ -33,9 +35,11 @@ func SetupGoGuardian() {
 }
 
 func ValidateUser(ctx context.Context, r *http.Request, userName, password string) (auth.Info, error) {
-	// here connect to db or any other service to fetch user and validate it.
-	if userName == "medium" && password == "medium" {
-		return auth.NewDefaultUser("medium", "1", nil, nil), nil
+	userDetails, _ := models.ValidateUser(userName, password)
+
+	if userDetails.Username == userName && userDetails.Password == password {
+		fmt.Println(userDetails)
+		return auth.NewDefaultUser(userName, "1", nil, nil), nil
 	}
 
 	return nil, fmt.Errorf("invalid credentials")
